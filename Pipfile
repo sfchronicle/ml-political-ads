@@ -4,6 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+bs4 = "*"
+spacy = "~=3.2.4"
+ipynb = "*"
+import-ipynb = "*"
 
 [dev-packages]
 
