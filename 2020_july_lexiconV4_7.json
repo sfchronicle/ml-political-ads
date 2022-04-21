@@ -766,6 +766,7 @@
         "new deal"
     ],
     "foreign policy": [
+        "chinese communist party"
         "on china"
         "south koreans",
         "international atomic",
@@ -3726,5 +3727,16 @@
         "affordable health care",
         "health insurance",
         "medicare"
+    ],
+    "donation":[
+        "donate",
+        "donation",
+        "chip in",
+        "chipping in",
+        "contribute",
+        "contribution",
+        "fundraise",
+        "give now"
+        
     ]
 }
