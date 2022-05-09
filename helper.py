@@ -25,6 +25,7 @@ def get_text_from_csv(fn): # get ad's text from csv file, return a dataframe wit
     df_text = pd.DataFrame(ad_text).rename(columns = {0:'text'})
     df_new = df[df['ad_type']=='Text'][['advertiser_name']].reset_index(drop = True) 
     df = pd.concat([df_text,df_new],axis=1)
+    df['platform'] = 'google'
     return df  
 
 # check the dataset 
@@ -33,6 +34,7 @@ def check_null(df_text):
         print (df_text['text'].isnull().sum())
         df_text = df_text[df_text['text'].notnull()]
         df_text.reset_index(drop=True,inplace=True)
+        return df_text
 
 
 # function that filter the urls and symbols in the text 
@@ -110,3 +112,10 @@ def count_word(df_text):
     df_words.reset_index(drop = True, inplace = True)
     return df_words
           
+def read_fb(fn):
+    facebook_df = pd.read_csv(fn)
+    facebook_df.drop(columns = ['Unnamed: 0'],inplace = True)
+    facebook_df.rename(columns = {'byline':'advertiser_name'},inplace = True)
+    facebook_df['platform'] = 'facebook'
+    pd.set_option('display.max_colwidth', None)
+    return facebook_df
