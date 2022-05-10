@@ -9,6 +9,7 @@ spacy = "~=3.2.4"
 ipynb = "*"
 import-ipynb = "*"
 pandas = "*"
+youtube-transcript-api = "*"
 
 [dev-packages]
 ipykernel = "*"
