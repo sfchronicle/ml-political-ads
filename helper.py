@@ -5,6 +5,8 @@ import re
 import json
 import spacy
 from spacy.matcher import PhraseMatcher
+import numpy as np
+from youtube_transcript_api import YouTubeTranscriptApi
 
 def get_text_from_csv(fn): # get ad's text from csv file, return a dataframe with text, ad_id,ad_url, and report_url
     df = pd.read_csv(fn)
@@ -119,3 +121,58 @@ def read_fb(fn):
     facebook_df['platform'] = 'facebook'
     pd.set_option('display.max_colwidth', None)
     return facebook_df
+
+# go through the csv file, get youtube video's ids from all video ads. Add new column 'youtube_id' 
+# before running this function, make sure the csv file includes ad_url
+def get_youtube_id(fn): 
+    df = pd.read_csv(fn)
+    df = df[df['ad_type'] == 'Video'].reset_index(drop = True) # only get video ads
+    df_video = df[['ad_url','advertiser_name','impressions','spend_usd']].reset_index(drop = True) 
+    urls = df_video['ad_url'].to_list() # 
+    youtube_ids = [] # get youtube id
+    for url in urls:
+        entity_id = url.split('/')[-3]
+        creative_id = url.split('/')[-1]
+        report_url = 'https://transparencyreport.google.com/transparencyreport/api/v3/politicalads/creatives/details?entity_id={}&creative_id={}&hl=en'.format(entity_id,creative_id)
+        response = requests.get(report_url)
+        try:
+            youtube_id = response.text.split('"')[3]
+            if len(list(youtube_id)) > 11: # mark ads violating google polices
+                youtube_id = 'youtube_id not available: this ad violated google ad policies.' 
+            #print(youtube_id + ', ' + creative_id)
+        except IndexError: # mark ads cannot be loaded
+            youtube_id = 'youtube_id not available: cannot load the video with this ad_url.'
+            #print("can't load this video, " + report_url)
+            pass
+        youtube_ids.append(youtube_id)
+    df_video['youtube_id'] = youtube_ids
+    return df_video
+
+# check all videos, see which are available and drop duplicates. Add a new column video_available
+def check_video(df_video): 
+  for id in df_video['youtube_id']:
+    if len(list(id)) == 11:
+      df_video.drop_duplicates(subset = 'youtube_id',keep = 'first', inplace = True)
+      df_video.reset_index(drop = True, inplace=True)
+      yes_video = df_video['youtube_id'].str.len() == 11
+      df_video['video_available'] = yes_video
+      return df_video
+
+# use youtube_id to get captions. Add a new column youtube_captions
+def get_captions(df_video):
+  youtube_captions = []
+  for youtube_id in df_video['youtube_id']:
+    try:
+      subs = YouTubeTranscriptApi.get_transcript(youtube_id)
+      #prints the result
+      alist = []
+      for sub in subs:
+        alist.append(" " + sub['text'])
+      captions = ""
+      for item in alist:
+        captions += item
+    except Exception as e:
+      captions = e   
+    youtube_captions.append(captions)
+    df_video['text'] = youtube_captions
+    return df_video
