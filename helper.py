@@ -160,19 +160,20 @@ def check_video(df_video):
 
 # use youtube_id to get captions. Add a new column youtube_captions
 def get_captions(df_video):
-  youtube_captions = []
-  for youtube_id in df_video['youtube_id']:
-    try:
-      subs = YouTubeTranscriptApi.get_transcript(youtube_id)
-      #prints the result
-      alist = []
-      for sub in subs:
-        alist.append(" " + sub['text'])
-      captions = ""
-      for item in alist:
-        captions += item
-    except Exception as e:
-      captions = e   
-    youtube_captions.append(captions)
+    youtube_captions = []
+    for youtube_id in df_video['youtube_id']:
+        try:
+            subs = YouTubeTranscriptApi.get_transcript(youtube_id)
+            #prints the result
+            alist = []
+            for sub in subs:
+                alist.append(" " + sub['text'])
+            captions = ""
+            for item in alist:
+                captions += item
+        except Exception as e:
+            captions = e   
+        youtube_captions.append(captions)
+        #print(len(youtube_captions))
     df_video['text'] = youtube_captions
     return df_video
