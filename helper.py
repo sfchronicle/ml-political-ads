@@ -56,8 +56,8 @@ def clean_text(df_text):
 
 # the function that find the lexicon words in the text
 def find_words(x,lexicon):   
-    topics= lexicon.keys()  
-    nlp = spacy.load("/usr/local/Cellar/jupyterlab/3.2.9/libexec/lib/python3.9/site-packages/en_core_web_lg/en_core_web_lg-3.2.0/")
+    topics= lexicon.keys('en_core_web_lg')  
+    nlp = spacy.load()
     doc = nlp(x) # nlp() is spaCy 2.2 English language model 
     words= []
     for t in topics:
