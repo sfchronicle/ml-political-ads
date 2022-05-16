@@ -1,4 +1,35 @@
 {
+    "establishment":[
+        "status quo",
+        "stand up",
+        "establishment",
+        "washington",
+        "interests",
+        "politican",
+        "politicans"
+    ],
+    "supporters":[
+        "endorsed",
+        "endorsement",
+        "endorsements",
+        "backs",
+        "support of"
+    ],
+    "continue with the folks":
+    [
+        "continue",
+        "re election"
+    ],
+    "polarizing":[
+      "liberal",
+      "consevative",
+      "values",
+      "radical left",
+      "radical",
+      "communism",
+      "socialism",
+      "toward socialism"
+    ],
     "covid": [
         "vaccinate",
         "vaccine mandates",
@@ -1793,7 +1824,6 @@
         "laws",
         "law",
         "liberal appointee",
-        "fundrasing goals",
         "members congress",
         "restore power people",
         "presidential vetoes",
@@ -3319,6 +3349,7 @@
         "systemic racism"
     ],
     "social programs": [
+        "medical billing",
         "takebackthehouse",
         "loan assistance",
         "fairhousingmonth",
@@ -3595,7 +3626,6 @@
         "premiums",
         "obamacare took",
         "welfare reform",
-        "toward socialism",
         "diabetes",
         "giving tax breaks",
         "state tuition",
@@ -3804,14 +3834,15 @@
         "medicare"
     ],
     "donation": [
-        "donate",
-        "donation",
-        "chip in",
-        "chipping in",
-        "contribute",
-        "contribution",
-        "fundraise",
-        "give now",
-        "fundrasing gap"  
+      "donate",
+      "donation",
+      "chip in",
+      "chipping in",
+      "contribute",
+      "contribution",
+      "fundraise",
+      "give now",
+      "fundrasing gap",
+      "fundrasing goals"
     ]
 }
