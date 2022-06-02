@@ -18,6 +18,10 @@ install = "*"
 speechrecognition = "*"
 datetime = "*"
 facebook-sdk = "*"
+selenium = "*"
+jupyter = "*"
+lab = "*"
+jupyterlab = "*"
 
 [dev-packages]
 ipykernel = "*"
