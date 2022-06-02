@@ -1,2 +1,4 @@
 # ignore ALL audio Files
-audio-chunks/*
+audio-chunks/
+
+*.wav
